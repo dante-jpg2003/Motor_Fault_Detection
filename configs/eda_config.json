@@ -1,0 +1,41 @@
+{
+    "num_channels": 9,
+    "signal_length": 10000,
+    "channel_names": [
+        "Stator Voltage A",
+        "Stator Voltage B",
+        "Stator Voltage C",
+        "Stator Current A",
+        "Stator Current B",
+        "Stator Current C",
+        "Rotor Current",
+        "Rotor Speed",
+        "Rotor Speed (Alt)"
+    ],
+    "fault_classes": {
+        "VREC": 0,
+        "OP": 1,
+        "REVD": 2,
+        "2PSC": 3,
+        "1PSC": 4,
+        "NF": 5
+    },
+    "class_counts": {
+        "VREC": 322,
+        "OP": 703,
+        "REVD": 518,
+        "2PSC": 753,
+        "1PSC": 767,
+        "NF": 329
+    },
+    "window_sizes": [
+        100,
+        200,
+        400,
+        600,
+        800
+    ],
+    "stride_ratio": 0.5,
+    "train_test_split": 0.8,
+    "imbalance_ratio": 2.38
+}
