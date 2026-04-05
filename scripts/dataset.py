@@ -6,7 +6,15 @@ import json
 import os
 
 # ── paths ──────────────────────────────────────────────────────────────
-DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data', 'raw')
+def get_data_dir():
+    """Returns data directory, checks environment variable first."""
+    env_path = os.environ.get('MOTOR_DATA_DIR')
+    if env_path:
+        return env_path
+    # Default local path
+    return os.path.join(os.path.dirname(__file__), '..', 'data', 'raw')
+
+DATA_DIR = get_data_dir()
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), '..', 'configs', 'eda_config.json')
 
 # ── fault file map ─────────────────────────────────────────────────────

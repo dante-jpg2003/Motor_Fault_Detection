@@ -16,18 +16,18 @@ from model import CNNGRUModel, count_parameters
 
 # ── Config ────────────────────────────────────────────────────────────────────
 CONFIG = {
-    'window_size' : 800,
-    'batch_size'  : 64,    # larger batch = fewer iterations
-    'epochs'      : 5,     # just enough to see if it's learning
+    'window_size'  : 800,
+    'batch_size'   : 64,
+    'epochs'       : 30,
     'learning_rate': 1e-3,
     'weight_decay' : 1e-4,
     'train_ratio'  : 0.8,
     'random_seed'  : 42,
     'num_classes'  : 6,
     'num_channels' : 9,
-    'max_train_batches': 100,   # add this — cap batches per epoch for local
-    'max_test_batches' : 50,    # add this — cap test batches too
 }
+
+
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 RESULTS_DIR  = os.path.join(os.path.dirname(__file__), '..', 'results')
@@ -56,8 +56,7 @@ def get_class_weights(labels, num_classes=6):
 
 
 # ── Training loop ─────────────────────────────────────────────────────────────
-def train_one_epoch(model, loader, criterion, optimiser, device,
-                    max_batches=None):
+def train_one_epoch(model, loader, criterion, optimiser, device):
     model.train()
     total_loss    = 0.0
     correct       = 0
@@ -65,8 +64,7 @@ def train_one_epoch(model, loader, criterion, optimiser, device,
 
     for i, (batch_windows, batch_labels) in enumerate(loader):
         # Stop early if cap reached
-        if max_batches is not None and i >= max_batches:
-            break
+        
 
         batch_windows = batch_windows.to(device)
         batch_labels  = batch_labels.to(device)
@@ -87,7 +85,7 @@ def train_one_epoch(model, loader, criterion, optimiser, device,
     return avg_loss, accuracy
 
 
-def evaluate(model, loader, criterion, device, max_batches=None):
+def evaluate(model, loader, criterion, device):
     model.eval()
     total_loss    = 0.0
     correct       = 0
@@ -95,8 +93,6 @@ def evaluate(model, loader, criterion, device, max_batches=None):
 
     with torch.no_grad():
         for i, (batch_windows, batch_labels) in enumerate(loader):
-            if max_batches is not None and i >= max_batches:
-                break
 
             batch_windows = batch_windows.to(device)
             batch_labels  = batch_labels.to(device)
@@ -115,7 +111,7 @@ def evaluate(model, loader, criterion, device, max_batches=None):
 
 
 # ── Validation loop ───────────────────────────────────────────────────────────
-def evaluate(model, loader, criterion, device, max_batches=None):
+def evaluate(model, loader, criterion, device):
     model.eval()
     total_loss    = 0.0
     correct       = 0
