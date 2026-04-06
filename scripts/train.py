@@ -297,12 +297,10 @@ def train(config=CONFIG):
         start = time.time()
 
         train_loss, train_acc = train_one_epoch(
-            model, train_loader, criterion, optimiser, device,
-            max_batches = config.get('max_train_batches', None)
+            model, train_loader, criterion, optimiser, device,    
         )
         test_loss, test_acc = evaluate(
-            model, test_loader, criterion, device,
-            max_batches = config.get('max_test_batches', None)
+            model, test_loader, criterion, device,  
         )
 
         # Step scheduler
