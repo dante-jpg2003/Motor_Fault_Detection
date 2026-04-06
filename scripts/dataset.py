@@ -34,7 +34,8 @@ def load_all_data(verbose=True):
         path = os.path.join(DATA_DIR, fname)
         mat  = scipy.io.loadmat(path)
 
-        experiments = mat['train_data']
+        # Convert to float32 immediately — halves memory usage
+        experiments = mat['train_data'].astype(np.float32)
         labels      = mat['label_data'].flatten()
 
         if verbose:
@@ -48,7 +49,10 @@ def load_all_data(verbose=True):
     labels = np.concatenate(all_labels, axis=0)
 
     if verbose:
+        # Show memory usage
+        mem_gb = data.nbytes / 1e9
         print(f"\nTotal loaded: {data.shape}")
+        print(f"Memory usage: {mem_gb:.2f} GB")
 
     return data, labels
 
@@ -113,8 +117,8 @@ def normalise(data, mean, std):
 
 class MotorFaultDataset(Dataset):
     """
-    PyTorch Dataset for motor fault classification.
-    Handles windowing of normalised experiment data.
+    Memory-efficient PyTorch Dataset for motor fault classification.
+    Windows are computed on the fly instead of stored in memory.
     """
 
     def __init__(self, data, labels, window_size, stride=None):
@@ -122,47 +126,48 @@ class MotorFaultDataset(Dataset):
         Args:
             data:        np.ndarray (N, 10000, 9) — normalised experiments
             labels:      np.ndarray (N,)
-            window_size: int — number of time points per window
-            stride:      int — step between windows (default: window_size // 2)
+            window_size: int
+            stride:      int (default: window_size // 2)
         """
+        self.data        = data
+        self.labels      = labels
         self.window_size = window_size
         self.stride      = stride if stride is not None else window_size // 2
+        self.signal_len  = data.shape[1]
 
-        self.windows = []  # each entry: (window_size, 9)
-        self.targets = []  # each entry: int label
-
-        self._create_windows(data, labels)
-
-    def _create_windows(self, data, labels):
-        """Slice each experiment into overlapping windows."""
-        signal_length = data.shape[1]
-
+        # Build index map — (experiment_idx, start_time) for each window
+        # This stores integers only, not the actual data
+        self.index_map = []
         for exp_idx in range(len(data)):
-            experiment = data[exp_idx]      # (10000, 9)
-            label      = labels[exp_idx]
-
             start = 0
-            while start + self.window_size <= signal_length:
-                window = experiment[start : start + self.window_size]
-                self.windows.append(window)
-                self.targets.append(int(label))
+            while start + self.window_size <= self.signal_len:
+                self.index_map.append((exp_idx, start))
                 start += self.stride
 
-        print(f"Created {len(self.windows):,} windows "
+        # Still need targets list for weighted sampler
+        self.targets = [
+            int(labels[exp_idx])
+            for exp_idx, _ in self.index_map
+        ]
+
+        print(f"Created {len(self.index_map):,} windows "
               f"(window={self.window_size}, stride={self.stride})")
 
     def __len__(self):
-        return len(self.windows)
+        return len(self.index_map)
 
     def __getitem__(self, idx):
-        # Window shape: (window_size, 9) → transpose to (9, window_size)
-        # CNN expects (channels, time) format
-        window = torch.tensor(
-            self.windows[idx].T,    # transpose here
-            dtype=torch.float32
-        )
-        label = torch.tensor(self.targets[idx], dtype=torch.long)
+        exp_idx, start = self.index_map[idx]
+
+        # Slice window on the fly — only loads what's needed
+        window = self.data[exp_idx, start:start + self.window_size, :]
+
+        # Transpose to (channels, time) for CNN
+        window = torch.tensor(window.T, dtype=torch.float32)
+        label  = torch.tensor(self.targets[idx], dtype=torch.long)
+
         return window, label
+
 def get_weighted_sampler(dataset, verbose=True):
     """
     Creates a WeightedRandomSampler so each class is sampled equally
