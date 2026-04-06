@@ -30,7 +30,13 @@ CONFIG = {
 
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
-RESULTS_DIR  = os.path.join(os.path.dirname(__file__), '..', 'results')
+def get_results_dir():
+    env_path = os.environ.get('MOTOR_RESULTS_DIR')
+    if env_path:
+        return env_path
+    return os.path.join(os.path.dirname(__file__), '..', 'results')
+
+RESULTS_DIR = get_results_dir()
 CHECKPOINT   = os.path.join(RESULTS_DIR, 'best_model.pt')
 HISTORY_PATH = os.path.join(RESULTS_DIR, 'training_history.json')
 
