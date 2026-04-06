@@ -141,27 +141,21 @@ def evaluate(model, loader, criterion, device):
     return avg_loss, accuracy
 
 def check_for_leakage(train_dataset, test_dataset):
-    """
-    Verify no windows from the same time region appear in both splits.
-    Checks a sample of windows for exact matches.
-    """
     print("\nChecking for data leakage...")
-    
-    # Sample 100 random test windows
-    test_indices  = np.random.choice(len(test_dataset), 
-                                      min(100, len(test_dataset)), 
+
+    test_indices  = np.random.choice(len(test_dataset),
+                                      min(100, len(test_dataset)),
                                       replace=False)
     train_indices = np.random.choice(len(train_dataset),
                                       min(1000, len(train_dataset)),
                                       replace=False)
 
-    # Convert samples to numpy for comparison
-    test_samples  = np.array([test_dataset.windows[i] 
+    # Use __getitem__ instead of .windows
+    test_samples  = np.array([test_dataset[i][0].numpy() 
                                for i in test_indices])
-    train_samples = np.array([train_dataset.windows[i] 
+    train_samples = np.array([train_dataset[i][0].numpy() 
                                for i in train_indices])
 
-    # Check for exact matches
     matches = 0
     for test_w in test_samples:
         for train_w in train_samples:
@@ -174,23 +168,23 @@ def check_for_leakage(train_dataset, test_dataset):
     else:
         print(f"✗ WARNING: {matches} identical windows in train and test")
 
-    # Also check label distribution in datasets
+    # Class distribution
     train_label_dist = np.bincount(
         np.array(train_dataset.targets), minlength=6
     )
-    test_label_dist  = np.bincount(
-        np.array(test_dataset.targets),  minlength=6
+    test_label_dist = np.bincount(
+        np.array(test_dataset.targets), minlength=6
     )
-    
+
     print("\nWindow-level class distribution:")
     print(f"{'Class':<8} {'Train':>8} {'Test':>8} {'Ratio':>8}")
     class_names = {0:'VREC', 1:'OP', 2:'REVD', 3:'2PSC', 4:'1PSC', 5:'NF'}
     for i in range(6):
-        ratio = (test_label_dist[i] / train_label_dist[i] 
+        ratio = (test_label_dist[i] / train_label_dist[i]
                  if train_label_dist[i] > 0 else 0)
         print(f"{class_names[i]:<8} {train_label_dist[i]:>8} "
               f"{test_label_dist[i]:>8} {ratio:>8.2f}")
-
+        
 # ── Main training function ────────────────────────────────────────────────────
 def train(config=CONFIG):
     # Device
