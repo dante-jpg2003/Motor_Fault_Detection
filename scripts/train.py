@@ -36,11 +36,6 @@ def get_results_dir():
         return env_path
     return os.path.join(os.path.dirname(__file__), '..', 'results')
 
-RESULTS_DIR = get_results_dir()
-CHECKPOINT   = os.path.join(RESULTS_DIR, 'best_model.pt')
-HISTORY_PATH = os.path.join(RESULTS_DIR, 'training_history.json')
-
-
 # ── Compute class weights for loss function ───────────────────────────────────
 def get_class_weights(labels, num_classes=6):
     """
@@ -71,7 +66,6 @@ def train_one_epoch(model, loader, criterion, optimiser, device):
     for i, (batch_windows, batch_labels) in enumerate(loader):
         # Stop early if cap reached
         
-
         batch_windows = batch_windows.to(device)
         batch_labels  = batch_labels.to(device)
 
@@ -187,6 +181,12 @@ def check_for_leakage(train_dataset, test_dataset):
         
 # ── Main training function ────────────────────────────────────────────────────
 def train(config=CONFIG):
+    
+    results_dir  = get_results_dir()
+    checkpoint   = os.path.join(results_dir, 'best_model.pt')
+    history_path = os.path.join(results_dir, 'training_history.json')
+    os.makedirs(results_dir, exist_ok=True)
+    
     # Device
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
@@ -218,7 +218,7 @@ def train(config=CONFIG):
 
     # Save normalisation stats for inference later
     norm_stats = {'mean': mean.tolist(), 'std': std.tolist()}
-    with open(os.path.join(RESULTS_DIR, 'norm_stats.json'), 'w') as f:
+    with open(os.path.join(results_dir, 'norm_stats.json'), 'w') as f:
         json.dump(norm_stats, f, indent=2)
 
     print("\nCREATING DATASETS")
@@ -315,7 +315,7 @@ def train(config=CONFIG):
                 'config'     : config,
                 'norm_stats' : norm_stats,
                 'test_acc'   : test_acc
-            }, CHECKPOINT)
+            }, checkpoint)
             saved = ' ← best saved'
         else:
             saved = ''
@@ -327,13 +327,13 @@ def train(config=CONFIG):
               f"{elapsed:.1f}s{saved}")
 
     # Save training history
-    with open(HISTORY_PATH, 'w') as f:
+    with open(history_path, 'w') as f:
         json.dump(history, f, indent=2)
 
     print(f"\nTraining complete.")
     print(f"Best test accuracy: {best_test_acc:.4f}")
-    print(f"Model saved to:     {CHECKPOINT}")
-    print(f"History saved to:   {HISTORY_PATH}")
+    print(f"Model saved to:     {checkpoint}")
+    print(f"History saved to:   {history_path}")
 
     return model, history
 

@@ -18,9 +18,9 @@ from model import CNNGRUModel
 
 # ── Constants ─────────────────────────────────────────────────────────────────
 CLASS_NAMES  = ['VREC', 'OP', 'REVD', '2PSC', '1PSC', 'NF']
-RESULTS_DIR  = os.path.join(os.path.dirname(__file__), '..', 'results')
-FIGURES_DIR  = os.path.join(RESULTS_DIR, 'figures')
-CHECKPOINT   = os.path.join(RESULTS_DIR, 'best_model.pt')
+results_dir  = os.path.join(os.path.dirname(__file__), '..', 'results')
+FIGURES_DIR  = os.path.join(results_dir, 'figures')
+checkpoint   = os.path.join(results_dir, 'best_model.pt')
 
 
 def load_model_and_data(checkpoint_path, window_size=800, stride=800):
@@ -202,12 +202,17 @@ def plot_training_curves(history_path, save_path):
 
 
 def evaluate(checkpoint_path=None, window_size=800, stride=800):
-    """Full evaluation pipeline."""
-
+    
+    # Read dynamically
+    results_dir  = os.environ.get('MOTOR_RESULTS_DIR',
+                    os.path.join(os.path.dirname(__file__), '..', 'results'))
+    figures_dir  = os.path.join(results_dir, 'figures')
+    
     if checkpoint_path is None:
-        checkpoint_path = CHECKPOINT
+        checkpoint_path = os.path.join(results_dir, 'best_model.pt')
 
-    os.makedirs(FIGURES_DIR, exist_ok=True)
+    os.makedirs(figures_dir, exist_ok=True)
+    
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}\n")
@@ -286,7 +291,7 @@ def evaluate(checkpoint_path=None, window_size=800, stride=800):
         }
     }
 
-    results_path = os.path.join(RESULTS_DIR, 'evaluation_results.json')
+    results_path = os.path.join(results_dir, 'evaluation_results.json')
     with open(results_path, 'w') as f:
         json.dump(results, f, indent=2)
     print(f"\nMetrics saved to {results_path}")
@@ -304,7 +309,7 @@ def evaluate(checkpoint_path=None, window_size=800, stride=800):
         save_path = os.path.join(FIGURES_DIR, 'per_class_metrics.png')
     )
 
-    history_path = os.path.join(RESULTS_DIR, 'training_history.json')
+    history_path = os.path.join(results_dir, 'training_history.json')
     if os.path.exists(history_path):
         plot_training_curves(
             history_path,
