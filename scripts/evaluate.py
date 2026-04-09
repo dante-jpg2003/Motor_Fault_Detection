@@ -18,10 +18,6 @@ from model import CNNGRUModel
 
 # ── Constants ─────────────────────────────────────────────────────────────────
 CLASS_NAMES  = ['VREC', 'OP', 'REVD', '2PSC', '1PSC', 'NF']
-results_dir  = os.path.join(os.path.dirname(__file__), '..', 'results')
-FIGURES_DIR  = os.path.join(results_dir, 'figures')
-checkpoint   = os.path.join(results_dir, 'best_model.pt')
-
 
 def load_model_and_data(checkpoint_path, window_size=800, stride=800):
     """Load trained model and prepare test dataset."""
@@ -301,19 +297,19 @@ def evaluate(checkpoint_path=None, window_size=800, stride=800):
 
     plot_confusion_matrix(
         y_true, y_pred, CLASS_NAMES,
-        save_path = os.path.join(FIGURES_DIR, 'confusion_matrix.png')
+        save_path = os.path.join(figures_dir, 'confusion_matrix.png')
     )
 
     plot_per_class_metrics(
         metrics_dict,
-        save_path = os.path.join(FIGURES_DIR, 'per_class_metrics.png')
+        save_path = os.path.join(figures_dir, 'per_class_metrics.png')
     )
 
     history_path = os.path.join(results_dir, 'training_history.json')
     if os.path.exists(history_path):
         plot_training_curves(
             history_path,
-            save_path = os.path.join(FIGURES_DIR, 'training_curves.png')
+            save_path = os.path.join(figures_dir, 'training_curves.png')
         )
 
     return results
