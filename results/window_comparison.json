@@ -1,0 +1,47 @@
+[
+  {
+    "window_size": 100,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "final_train_acc": 0.9996443700255794,
+    "final_test_acc": 1.0
+  },
+  {
+    "window_size": 200,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "final_train_acc": 0.9989724000044679,
+    "final_test_acc": 1.0
+  },
+  {
+    "window_size": 400,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "final_train_acc": 0.9996013149085657,
+    "final_test_acc": 1.0
+  },
+  {
+    "window_size": 600,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "final_train_acc": 0.9998848138591965,
+    "final_test_acc": 1.0
+  },
+  {
+    "window_size": 800,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "final_train_acc": 0.9999846418478928,
+    "final_test_acc": 1.0
+  }
+]

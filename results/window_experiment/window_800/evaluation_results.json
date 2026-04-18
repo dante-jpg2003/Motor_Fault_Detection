@@ -1,0 +1,48 @@
+{
+  "overall_accuracy": 1.0,
+  "window_size": 800,
+  "stride": 800,
+  "per_class": {
+    "VREC": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 768
+    },
+    "OP": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 1692
+    },
+    "REVD": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 1248
+    },
+    "2PSC": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 1812
+    },
+    "1PSC": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 1836
+    },
+    "NF": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 792
+    }
+  },
+  "macro_avg": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  }
+}

@@ -1,0 +1,266 @@
+Loading data...
+Train: 2713 experiments
+Test:  679 experiments
+
+Class distribution:
+Class       Train     Test
+0             258       64
+1             562      141
+2             414      104
+3             602      151
+4             614      153
+5             263       66
+Normalisation statistics (per channel):
+Channel          Mean        Std
+Ch 0           0.1119    53.1883
+Ch 1          -0.1527    54.2535
+Ch 2          -0.0105    53.5149
+Ch 3          -0.0015     0.6194
+Ch 4          -0.0061     0.6365
+Ch 5           0.0026     0.5986
+Ch 6           0.4621     0.3420
+Ch 7           1.4170     0.8523
+Ch 8           2.3503     2.2244
+
+=======================================================
+Testing: Stator Voltage (0,1,2)
+Channels: [0, 1, 2]
+=======================================================
+Created 32,556 windows (window=800, stride=800)
+Created 8,148 windows (window=800, stride=800)
+Class weights for sampler:
+  VREC   count=3096, weight=0.000323
+  OP     count=6744, weight=0.000148
+  REVD   count=4968, weight=0.000201
+  2PSC   count=7224, weight=0.000138
+  1PSC   count=7368, weight=0.000136
+  NF     count=3156, weight=0.000317
+Class weights for loss function:
+  VREC   count= 258, weight=1.7526
+  OP     count= 562, weight=0.8046
+  REVD   count= 414, weight=1.0922
+  2PSC   count= 602, weight=0.7511
+  1PSC   count= 614, weight=0.7364
+  NF     count= 263, weight=1.7193
+  Epoch  1/10 — Test acc: 1.0000
+  Epoch  2/10 — Test acc: 1.0000
+  Epoch  3/10 — Test acc: 1.0000
+  Epoch  4/10 — Test acc: 1.0000
+  Epoch  5/10 — Test acc: 1.0000
+  Epoch  6/10 — Test acc: 1.0000
+  Epoch  7/10 — Test acc: 1.0000
+  Epoch  8/10 — Test acc: 1.0000
+  Epoch  9/10 — Test acc: 1.0000
+  Epoch 10/10 — Test acc: 1.0000
+Best accuracy: 1.0000
+
+=======================================================
+Testing: Stator Current (3,4,5)
+Channels: [3, 4, 5]
+=======================================================
+Created 32,556 windows (window=800, stride=800)
+Created 8,148 windows (window=800, stride=800)
+Class weights for sampler:
+  VREC   count=3096, weight=0.000323
+  OP     count=6744, weight=0.000148
+  REVD   count=4968, weight=0.000201
+  2PSC   count=7224, weight=0.000138
+  1PSC   count=7368, weight=0.000136
+  NF     count=3156, weight=0.000317
+Class weights for loss function:
+  VREC   count= 258, weight=1.7526
+  OP     count= 562, weight=0.8046
+  REVD   count= 414, weight=1.0922
+  2PSC   count= 602, weight=0.7511
+  1PSC   count= 614, weight=0.7364
+  NF     count= 263, weight=1.7193
+  Epoch  1/10 — Test acc: 1.0000
+  Epoch  2/10 — Test acc: 1.0000
+  Epoch  3/10 — Test acc: 1.0000
+  Epoch  4/10 — Test acc: 1.0000
+  Epoch  5/10 — Test acc: 1.0000
+  Epoch  6/10 — Test acc: 1.0000
+  Epoch  7/10 — Test acc: 1.0000
+  Epoch  8/10 — Test acc: 1.0000
+  Epoch  9/10 — Test acc: 1.0000
+  Epoch 10/10 — Test acc: 1.0000
+Best accuracy: 1.0000
+
+=======================================================
+Testing: Rotor Current (6)
+Channels: [6]
+=======================================================
+Created 32,556 windows (window=800, stride=800)
+Created 8,148 windows (window=800, stride=800)
+Class weights for sampler:
+  VREC   count=3096, weight=0.000323
+  OP     count=6744, weight=0.000148
+  REVD   count=4968, weight=0.000201
+  2PSC   count=7224, weight=0.000138
+  1PSC   count=7368, weight=0.000136
+  NF     count=3156, weight=0.000317
+Class weights for loss function:
+  VREC   count= 258, weight=1.7526
+  OP     count= 562, weight=0.8046
+  REVD   count= 414, weight=1.0922
+  2PSC   count= 602, weight=0.7511
+  1PSC   count= 614, weight=0.7364
+  NF     count= 263, weight=1.7193
+  Epoch  1/10 — Test acc: 1.0000
+  Epoch  2/10 — Test acc: 1.0000
+  Epoch  3/10 — Test acc: 1.0000
+  Epoch  4/10 — Test acc: 1.0000
+  Epoch  5/10 — Test acc: 1.0000
+  Epoch  6/10 — Test acc: 1.0000
+  Epoch  7/10 — Test acc: 0.9998
+  Epoch  8/10 — Test acc: 1.0000
+  Epoch  9/10 — Test acc: 1.0000
+  Epoch 10/10 — Test acc: 1.0000
+Best accuracy: 1.0000
+
+=======================================================
+Testing: Rotor Speed (7)
+Channels: [7]
+=======================================================
+Created 32,556 windows (window=800, stride=800)
+Created 8,148 windows (window=800, stride=800)
+Class weights for sampler:
+  VREC   count=3096, weight=0.000323
+  OP     count=6744, weight=0.000148
+  REVD   count=4968, weight=0.000201
+  2PSC   count=7224, weight=0.000138
+  1PSC   count=7368, weight=0.000136
+  NF     count=3156, weight=0.000317
+Class weights for loss function:
+  VREC   count= 258, weight=1.7526
+  OP     count= 562, weight=0.8046
+  REVD   count= 414, weight=1.0922
+  2PSC   count= 602, weight=0.7511
+  1PSC   count= 614, weight=0.7364
+  NF     count= 263, weight=1.7193
+  Epoch  1/10 — Test acc: 0.9978
+  Epoch  2/10 — Test acc: 1.0000
+  Epoch  3/10 — Test acc: 1.0000
+  Epoch  4/10 — Test acc: 1.0000
+  Epoch  5/10 — Test acc: 1.0000
+  Epoch  6/10 — Test acc: 1.0000
+  Epoch  7/10 — Test acc: 1.0000
+  Epoch  8/10 — Test acc: 1.0000
+  Epoch  9/10 — Test acc: 1.0000
+  Epoch 10/10 — Test acc: 1.0000
+Best accuracy: 1.0000
+
+=======================================================
+Testing: Stator Voltage + Rotor Current
+Channels: [0, 1, 2, 6]
+=======================================================
+Created 32,556 windows (window=800, stride=800)
+Created 8,148 windows (window=800, stride=800)
+Class weights for sampler:
+  VREC   count=3096, weight=0.000323
+  OP     count=6744, weight=0.000148
+  REVD   count=4968, weight=0.000201
+  2PSC   count=7224, weight=0.000138
+  1PSC   count=7368, weight=0.000136
+  NF     count=3156, weight=0.000317
+Class weights for loss function:
+  VREC   count= 258, weight=1.7526
+  OP     count= 562, weight=0.8046
+  REVD   count= 414, weight=1.0922
+  2PSC   count= 602, weight=0.7511
+  1PSC   count= 614, weight=0.7364
+  NF     count= 263, weight=1.7193
+  Epoch  1/10 — Test acc: 1.0000
+  Epoch  2/10 — Test acc: 1.0000
+  Epoch  3/10 — Test acc: 1.0000
+  Epoch  4/10 — Test acc: 1.0000
+  Epoch  5/10 — Test acc: 1.0000
+  Epoch  6/10 — Test acc: 1.0000
+  Epoch  7/10 — Test acc: 1.0000
+  Epoch  8/10 — Test acc: 1.0000
+  Epoch  9/10 — Test acc: 1.0000
+  Epoch 10/10 — Test acc: 1.0000
+Best accuracy: 1.0000
+
+=======================================================
+Testing: Stator Current + Rotor Current
+Channels: [3, 4, 5, 6]
+=======================================================
+Created 32,556 windows (window=800, stride=800)
+Created 8,148 windows (window=800, stride=800)
+Class weights for sampler:
+  VREC   count=3096, weight=0.000323
+  OP     count=6744, weight=0.000148
+  REVD   count=4968, weight=0.000201
+  2PSC   count=7224, weight=0.000138
+  1PSC   count=7368, weight=0.000136
+  NF     count=3156, weight=0.000317
+Class weights for loss function:
+  VREC   count= 258, weight=1.7526
+  OP     count= 562, weight=0.8046
+  REVD   count= 414, weight=1.0922
+  2PSC   count= 602, weight=0.7511
+  1PSC   count= 614, weight=0.7364
+  NF     count= 263, weight=1.7193
+  Epoch  1/10 — Test acc: 1.0000
+  Epoch  2/10 — Test acc: 1.0000
+  Epoch  3/10 — Test acc: 1.0000
+  Epoch  4/10 — Test acc: 1.0000
+  Epoch  5/10 — Test acc: 1.0000
+  Epoch  6/10 — Test acc: 1.0000
+  Epoch  7/10 — Test acc: 1.0000
+  Epoch  8/10 — Test acc: 1.0000
+  Epoch  9/10 — Test acc: 1.0000
+  Epoch 10/10 — Test acc: 1.0000
+Best accuracy: 1.0000
+
+=======================================================
+Testing: All 9 Channels
+Channels: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+=======================================================
+Created 32,556 windows (window=800, stride=800)
+Created 8,148 windows (window=800, stride=800)
+Class weights for sampler:
+  VREC   count=3096, weight=0.000323
+  OP     count=6744, weight=0.000148
+  REVD   count=4968, weight=0.000201
+  2PSC   count=7224, weight=0.000138
+  1PSC   count=7368, weight=0.000136
+  NF     count=3156, weight=0.000317
+Class weights for loss function:
+  VREC   count= 258, weight=1.7526
+  OP     count= 562, weight=0.8046
+  REVD   count= 414, weight=1.0922
+  2PSC   count= 602, weight=0.7511
+  1PSC   count= 614, weight=0.7364
+  NF     count= 263, weight=1.7193
+  Epoch  1/10 — Test acc: 1.0000
+  Epoch  2/10 — Test acc: 1.0000
+  Epoch  3/10 — Test acc: 1.0000
+  Epoch  4/10 — Test acc: 1.0000
+  Epoch  5/10 — Test acc: 1.0000
+  Epoch  6/10 — Test acc: 1.0000
+  Epoch  7/10 — Test acc: 1.0000
+  Epoch  8/10 — Test acc: 1.0000
+  Epoch  9/10 — Test acc: 1.0000
+  Epoch 10/10 — Test acc: 1.0000
+Best accuracy: 1.0000
+
+=================================================================
+CHANNEL ABLATION RESULTS vs PAPER BASELINES
+=================================================================
+Feature Set                              Channels   Accuracy
+------------------------------------------------------------
+Stator Voltage (0,1,2)                          3     1.0000
+Stator Current (3,4,5)                          3     1.0000
+Rotor Current (6)                               1     1.0000
+Rotor Speed (7)                                 1     1.0000
+Stator Voltage + Rotor Current                  4     1.0000
+Stator Current + Rotor Current                  4     1.0000
+All 9 Channels                                  9     1.0000
+
+Paper reference results (CNN, window=800):
+  Stator Voltage only:              97.05%
+  Stator Current only:              98.38%
+  Rotor Current only:               98.97%
+  Rotor Speed only:                 43.81%
