@@ -77,7 +77,10 @@ Motor_Fault_Detection/
 │   └── eda_config.json         # Channel map and dataset constants from EDA
 │
 ├── results/
-│   ├── figures/                # Saved plots (confusion matrix, training curves, etc.)
+│   ├── ablation_study/         # Saved plots (confusion matrix, training curves, etc.)
+│   ├── basemodel_figures/      # Base Model  at 800 points
+│   ├── eda_plots/              # Plots generated from Exploratory Data Analysis
+│   ├── window_experiment/      # Models saved from the Window Experiment
 │   ├── best_model.pt           # Saved model checkpoint
 │   ├── training_history.json   # Per-epoch loss and accuracy
 │   └── evaluation_results.json # Final evaluation metrics
